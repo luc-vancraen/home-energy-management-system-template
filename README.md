@@ -27,6 +27,16 @@ You do not need batteries or solar panels to start:
 4. **Shifting consumption without a battery**: car, water heater, heat pump at cheap or sunny hours.
 5. **Full system**: batteries, solar, car, appliances.
 
+## Requirements
+
+| You want to | You need at least |
+|---|---|
+| **Get advice only** (profile 1) | Any laptop or PC, even one that is not always on: Windows (with WSL), a Mac, or Linux. Plus your consumption data (e.g. quarter-hour data from your grid operator, or your annual bill). |
+| **Measure or control** (profiles 2-5) | A Linux machine that is on day and night: e.g. a low-power mini PC (Intel N100, 5-15 W) or a Raspberry Pi 4/5 with an SSD; at least 4 GB RAM (8 GB with Home Assistant) and 64 GB storage; preferably a network cable. Debian or Ubuntu, with a user that has `sudo` rights. A digital meter with a locally readable dongle (e.g. a P1 dongle) and an activated data port. |
+| **Use only a Windows PC** | Possible with WSL 2 for measuring; for controlling only with conditions (always on, no sleep, Windows Update restarts planned). A separate small Linux machine is recommended for control. |
+
+Always: an AI assistant (see below), access to your router (fixed IP addresses), internet while building, and a few evenings of time. No programming knowledge, no manufacturer cloud subscriptions and no changes to the electrical installation are needed. The template itself lists everything in detail in "What do you need?", per profile.
+
 ## Which AI?
 
 The template is not tied to one AI. It works best with an **AI agent** that can run commands on your Linux machine, for example Claude Code, OpenAI Codex CLI, Gemini CLI or Kimi Code CLI. A **regular chat** (ChatGPT, Claude, Gemini, Kimi, ...) also works: the assistant then gives you one command at a time and you paste the result back. For advice only, a chat in which you can upload your consumption data is enough.
@@ -72,6 +82,16 @@ Made by **luc-vancraen**. Licensed under [Creative Commons Attribution-ShareAlik
 Je geeft dit template aan een AI-assistent. Die vraagt eerst naar je installatie en wensen, kijkt je machine na, stelt een plan voor en bouwt pas na je akkoord. Het resultaat zijn gewone programma's op je eigen computer die je digitale meter uitlezen, een dashboard, rapporten en meldingen geven, thuisbatterijen, een laadpaal en andere toestellen sturen op zon, prijs en kwartierpiek, en contracten vergelijken met je echte verbruik. Ook zonder batterijen of zonnepanelen kan je starten, bv. met enkel advies vóór aankoop.
 
 Het template is gebaseerd op een systeem dat al maanden stabiel draait in een huis in Vlaanderen, en bevat de lessen die daar geleerd zijn.
+
+**Wat heb je nodig?**
+
+| Je wil | Je hebt minstens nodig |
+|---|---|
+| **Enkel advies** (profiel 1) | Een gewone laptop of pc, ook als die niet altijd aanstaat: Windows (met WSL), een Mac of Linux. Plus je verbruiksdata (bv. kwartierdata uit Mijn Fluvius, of je jaarafrekening). |
+| **Meten of sturen** (profielen 2-5) | Een Linux-machine die dag en nacht aanstaat: bv. een zuinige mini-pc (Intel N100, 5-15 W) of een Raspberry Pi 4/5 met SSD; minstens 4 GB werkgeheugen (8 GB met Home Assistant) en 64 GB opslag; liefst met netwerkkabel. Debian of Ubuntu, met een gebruiker met `sudo`-rechten. Een digitale meter met een lokaal uit te lezen dongle (bv. een P1-dongle) en een geactiveerde gegevenspoort. |
+| **Enkel een Windows-pc** | Met WSL 2 kan je meten; sturen enkel met voorwaarden (altijd aan, geen slaapstand, herstarts door Windows Update gepland). Om te sturen is een aparte kleine Linux-machine aanbevolen. |
+
+Altijd: een AI-assistent (zie hieronder), toegang tot je router (vaste IP-adressen), internet tijdens het bouwen en een paar avonden tijd. Geen programmeerkennis, geen cloudabonnementen van fabrikanten en geen aanpassingen aan de elektrische installatie nodig. Het template zelf geeft alles in detail in "Wat heb je nodig?", per profiel.
 
 **Welke AI?** Het best een AI-agent die commando's kan uitvoeren op je Linux-machine (bv. Claude Code, OpenAI Codex CLI, Gemini CLI, Kimi Code CLI). Een gewone chat (ChatGPT, Claude, Gemini, Kimi, ...) kan ook: de assistent geeft dan telkens één commando en jij plakt het resultaat terug.
 
