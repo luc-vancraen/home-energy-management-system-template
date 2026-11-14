@@ -2,6 +2,10 @@
 
 Each version of the template, with the most important changes. Fixed versions with PDFs: see [Releases](https://github.com/luc-vancraen/home-energy-management-system-template/releases).
 
+## Unreleased
+
+- README: new paragraph "Do you need a paid AI subscription?" (English and Dutch); the template itself is unchanged.
+
 ## v19.1 - November 2026
 
 - "Read only first" is no longer called "always safe": it is the safest start, but check that nothing is written to a device in that phase.

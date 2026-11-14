@@ -49,6 +49,8 @@ Always: an AI assistant (see below), access to your router (fixed IP addresses),
 
 The template is not tied to one AI. It works best with an **AI agent** that can run commands on your Linux machine, for example Claude Code, OpenAI Codex CLI, Gemini CLI or Kimi Code CLI. A **regular chat** (ChatGPT, Claude, Gemini, Kimi, ...) also works: the assistant then gives you one command at a time and you paste the result back. For advice only, a chat in which you can upload your consumption data is enough.
 
+**Do you need a paid AI subscription?** Not necessarily: for advice the free version of a chat is enough, and some agents have a free tier. In practice, for a full system with control an agent is well worth it. A paid subscription for one month while building is then a reasonable choice, and you can cancel it afterwards. The system keeps running without AI, because it consists of ordinary programs on your own machine. You only need the AI to change or extend something.
+
 ## How to use
 
 1. Read the section "For the user" at the top of the template.
@@ -112,6 +114,8 @@ Het template is gebaseerd op een systeem dat al maanden stabiel draait in een hu
 Altijd: een AI-assistent (zie hieronder), toegang tot je router (vaste IP-adressen), internet tijdens het bouwen en een paar avonden tijd. Geen programmeerkennis, geen cloudabonnementen van fabrikanten en geen aanpassingen aan de elektrische installatie nodig. Het template zelf geeft alles in detail in "Wat heb je nodig?", per profiel.
 
 **Welke AI?** Het best een AI-agent die commando's kan uitvoeren op je Linux-machine (bv. Claude Code, OpenAI Codex CLI, Gemini CLI, Kimi Code CLI). Een gewone chat (ChatGPT, Claude, Gemini, Kimi, ...) kan ook: de assistent geeft dan telkens één commando en jij plakt het resultaat terug.
+
+**Moet je een betaald AI-abonnement hebben?** Niet per se: voor advies volstaat de gratis versie van een chat, en sommige agents hebben een gratis versie. Praktisch: voor een volledig systeem met sturing loont een agent echt de moeite. Een maand een betaald abonnement tijdens het bouwen is dan een redelijke keuze, en daarna kan je het opzeggen. Het systeem draait daarna gewoon verder zonder AI, want het zijn gewone programma's op je eigen machine. Je hebt de AI alleen nodig om iets te wijzigen of uit te breiden.
 
 **Gebruik**: lees eerst "Voor de gebruiker" bovenaan `hems-template-nl.md`. Met een agent: zet het bestand in een lege map op je Linux-machine, start daar de agent en typ `Lees hems-template-nl.md en volg het.` In een chat: laad het bestand op of plak de inhoud als eerste bericht, met de vraag "Volg dit".
 
