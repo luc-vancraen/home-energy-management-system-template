@@ -7,6 +7,7 @@ Each version of the template, with the most important changes. Fixed versions wi
 - "Read only first" is no longer called "always safe": it is the safest start, but check that nothing is written to a device in that phase.
 - New paragraph "An AI can make mistakes" at the top: no guarantee that the built software is correct, safe or compliant; the safety rules are requirements, not proof.
 - README: quick start in three steps; licence split (CC BY-SA 4.0 for templates and documentation, MIT for the code in `tools/`); this changelog.
+- PDFs (14/11, text unchanged): nested lists, such as the five starting profiles and the backup lessons, are now indented under their item instead of flattened.
 
 ## v19 - November 2026 (first public version)
 

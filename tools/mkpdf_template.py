@@ -23,22 +23,33 @@ def fmt(t):
     t = re.sub(r"\*\*([^*]+)\*\*", r"<b>\1</b>", t)
     return t
 story=[]
-bullets=[]
+bullets=[]   # [[tekst, [(teken, tekst), ...]], ...]: opsomming met ingesprongen subpunten
+sub = ParagraphStyle("s", parent=body, leftIndent=16, bulletIndent=2, spaceAfter=3)
 def flush():
     global bullets
     if bullets:
-        story.append(ListFlowable([ListItem(Paragraph(fmt(b), body), leftIndent=12) for b in bullets], bulletType="bullet", start="•", leftIndent=12, bulletFontName="DV"))
+        items=[]
+        for b, kids in bullets:
+            fl=[Paragraph(fmt(b), body)]+[Paragraph(fmt(t), sub if m else ParagraphStyle("c", parent=body, spaceAfter=3), bulletText=m) for m, t in kids]
+            items.append(ListItem(fl, leftIndent=12))
+        story.append(ListFlowable(items, bulletType="bullet", start="•", leftIndent=12, bulletFontName="DV"))
         bullets=[]
-for line in [l.strip() if re.match(r"\s+\d+\. ", l) or l.startswith("  ") else l for l in open(src, encoding="utf-8").read().splitlines()]:
-    if line.startswith("- "): bullets.append(line[2:]); continue
+for line in open(src, encoding="utf-8").read().splitlines():
+    if line[:1].isspace() and line.strip() and bullets:          # ingesprongen regel onder een opsommingspunt
+        t=line.strip(); m=re.match(r"(\d+\.) (.*)", t)
+        if m: bullets[-1][1].append((m.group(1), m.group(2)))
+        elif t.startswith("- "): bullets[-1][1].append(("–", t[2:]))
+        else: bullets[-1][1].append((None, t))
+        continue
+    line=line.strip() if line[:1].isspace() else line
+    if line.startswith("- "): bullets.append([line[2:], []]); continue
     flush()
     if not line.strip(): continue
     if line.startswith("### "): story.append(Paragraph(fmt(line[4:]), h3))
     elif line.startswith("## "): story.append(Paragraph(fmt(line[3:]), h2))
     elif line.startswith("# "): story.append(Paragraph(fmt(line[2:]), h1))
     else:
-        m=re.match(r"(\d+)\. (.*)", line)
-        story.append(Paragraph(fmt(line if not m else f"{m.group(1)}. {m.group(2)}"), body))
+        story.append(Paragraph(fmt(line), body))
 flush()
 def footer(c, d):
     c.setFont("DV",8); c.setFillColor("#777777"); c.drawRightString(A4[0]-2*cm, 1.2*cm, f"{d.page}")
