@@ -4,6 +4,14 @@
 
 [Nederlandse versie hieronder](#nederlands)
 
+## Quick start
+
+1. Choose your language: [`hems-template-en.md`](hems-template-en.md) (English) or [`hems-template-nl.md`](hems-template-nl.md) (Dutch).
+2. Download that file (or a fixed version from [Releases](https://github.com/luc-vancraen/home-energy-management-system-template/releases)).
+3. Give it to your AI assistant: with an agent, put it in an empty folder and type `Read hems-template-en.md and follow it.`; in a chat, upload it with the request "Follow this".
+
+More detail in "How to use" below.
+
 ## What it does
 
 You give this template to an AI assistant. The assistant first asks about your installation and wishes, checks your machine, proposes a plan, and only builds after you approve it. The result is a set of ordinary programs on your own computer that can:
@@ -57,13 +65,17 @@ The assistant keeps its notes in `AGENTS.md` and an overview of your installatio
 | `hems-template-nl.md` | The template in Dutch (same content) |
 | `hems-template-en.pdf`, `hems-template-nl.pdf` | The same, as PDF to read or print |
 | `tools/mkpdf_template.py` | Script that makes the PDFs (Python, reportlab, DejaVu fonts) |
-| `LICENSE` | CC BY-SA 4.0 |
+| `CHANGELOG.md` | What changed in each version |
+| `LICENSE` | CC BY-SA 4.0, for the templates, PDFs and documentation |
+| `tools/LICENSE` | MIT, for the code in `tools/` |
 
 To rebuild a PDF: `python tools/mkpdf_template.py hems-template-en.md hems-template-en.pdf`
 
 ## Safety and responsibility
 
-The system can control devices that switch a lot of power. You remain responsible for your installation. The template tells the assistant never to change the electrical installation itself, to respect the main fuse and the limits of every device, to read only before it controls, and to test every control step with low power while you are present. When in doubt, use read-only mode: that is always safe. Check the warranty terms of your devices before allowing third-party control.
+The system can control devices that switch a lot of power. You remain responsible for your installation. The template tells the assistant never to change the electrical installation itself, to respect the main fuse and the limits of every device, to read only before it controls, and to test every control step with low power while you are present. When in doubt, start with reading only, without control commands; that is the safest, but not risk-free by itself, so check that nothing is written to a device in that phase. Check the warranty terms of your devices before allowing third-party control.
+
+**An AI can make mistakes.** The software is written by an AI assistant, and there is no guarantee that it is correct, safe or compliant. The safety rules in the template are requirements for what is built, not proof that the result follows them. That is why the template makes observation mode, low-power tests while you are present, and your approval of every step mandatory. This project is not tested on your installation.
 
 ## Contributing
 
@@ -71,7 +83,7 @@ Learned something about a device that is not in appendix A yet (another battery,
 
 ## Licence
 
-Made by **luc-vancraen**. Licensed under [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/): you may use, share and adapt it, also commercially, if you credit the maker, link to the licence, indicate your changes and share adaptations under the same licence. Provided as is, without warranty.
+Made by **luc-vancraen**. Licensed under [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/): you may use, share and adapt it, also commercially, if you credit the maker, link to the licence, indicate your changes and share adaptations under the same licence. This applies to the templates, the PDFs and the documentation. The code in `tools/` is licensed under the [MIT licence](tools/LICENSE). Provided as is, without warranty.
 
 ---
 
@@ -82,6 +94,12 @@ Made by **luc-vancraen**. Licensed under [Creative Commons Attribution-ShareAlik
 Je geeft dit template aan een AI-assistent. Die vraagt eerst naar je installatie en wensen, kijkt je machine na, stelt een plan voor en bouwt pas na je akkoord. Het resultaat zijn gewone programma's op je eigen computer die je digitale meter uitlezen, een dashboard, rapporten en meldingen geven, thuisbatterijen, een laadpaal en andere toestellen sturen op zon, prijs en kwartierpiek, en contracten vergelijken met je echte verbruik. Ook zonder batterijen of zonnepanelen kan je starten, bv. met enkel advies vóór aankoop.
 
 Het template is gebaseerd op een systeem dat al maanden stabiel draait in een huis in Vlaanderen, en bevat de lessen die daar geleerd zijn.
+
+**Snel starten**
+
+1. Kies je taal: [`hems-template-nl.md`](hems-template-nl.md) (Nederlands) of [`hems-template-en.md`](hems-template-en.md) (Engels).
+2. Download dat bestand (of een vaste versie bij [Releases](https://github.com/luc-vancraen/home-energy-management-system-template/releases)).
+3. Geef het aan je AI-assistent: met een agent zet je het in een lege map en typ je `Lees hems-template-nl.md en volg het.`; in een chat laad je het op met de vraag "Volg dit".
 
 **Wat heb je nodig?**
 
@@ -97,6 +115,8 @@ Altijd: een AI-assistent (zie hieronder), toegang tot je router (vaste IP-adress
 
 **Gebruik**: lees eerst "Voor de gebruiker" bovenaan `hems-template-nl.md`. Met een agent: zet het bestand in een lege map op je Linux-machine, start daar de agent en typ `Lees hems-template-nl.md en volg het.` In een chat: laad het bestand op of plak de inhoud als eerste bericht, met de vraag "Volg dit".
 
-**Veiligheid**: jij blijft verantwoordelijk voor je installatie. Het template laat de assistent nooit iets aan de elektrische installatie wijzigen, eerst enkel uitlezen, en elke sturing eerst met klein vermogen testen terwijl je erbij bent.
+**Veiligheid**: jij blijft verantwoordelijk voor je installatie. Het template laat de assistent nooit iets aan de elektrische installatie wijzigen, eerst enkel uitlezen, en elke sturing eerst met klein vermogen testen terwijl je erbij bent. Ook enkel uitlezen is het veiligst, maar niet vanzelf zonder risico: controleer dat er in die fase niets naar een toestel geschreven wordt.
 
-**Licentie**: gemaakt door **luc-vancraen**, onder [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.nl). Vrij te gebruiken, delen en aanpassen, ook commercieel, met vermelding van de maker en onder dezelfde licentie. Zonder garantie.
+**Een AI kan zich vergissen**: de software wordt door een AI-assistent geschreven, zonder garantie dat ze juist, veilig of conform is. De veiligheidsregels in het template zijn eisen aan wat gebouwd wordt, geen bewijs dat het resultaat ze naleeft. Daarom zijn de observatiemodus, tests met klein vermogen terwijl je erbij bent en jouw akkoord bij elke stap verplicht.
+
+**Licentie**: gemaakt door **luc-vancraen**, onder [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.nl). Vrij te gebruiken, delen en aanpassen, ook commercieel, met vermelding van de maker en onder dezelfde licentie. Dat geldt voor de templates, de PDF's en de documentatie; de code in `tools/` valt onder de [MIT-licentie](tools/LICENSE). Zonder garantie.
