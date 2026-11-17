@@ -1,6 +1,6 @@
 # Prompt: een thuis-energiebeheersysteem (EMS) bouwen op je eigen Linux-machine
 
-Template v19.1 - november 2026
+Template v19.2 - november 2026
 
 ## Voor de gebruiker (lees dit eerst)
 

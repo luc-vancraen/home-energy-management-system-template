@@ -1,6 +1,6 @@
 # Prompt: building a home energy management system (EMS) on your own Linux machine
 
-Template v19.1 - November 2026
+Template v19.2 - November 2026
 
 ## For the user (read this first)
 

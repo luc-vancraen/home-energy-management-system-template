@@ -2,7 +2,7 @@
 
 Each version of the template, with the most important changes. Fixed versions with PDFs: see [Releases](https://github.com/luc-vancraen/home-energy-management-system-template/releases).
 
-## Unreleased
+## v19.2 - November 2026
 
 - README: new paragraph "Do you need a paid AI subscription?" (English and Dutch).
 - Install scripts: do not stop on an informative command under `set -euo pipefail` (`hostname -I` does not exist in BusyBox/Alpine); say how to start the programs when systemd is missing.
