@@ -4,7 +4,8 @@ Each version of the template, with the most important changes. Fixed versions wi
 
 ## Unreleased
 
-- README: new paragraph "Do you need a paid AI subscription?" (English and Dutch); the template itself is unchanged.
+- README: new paragraph "Do you need a paid AI subscription?" (English and Dutch).
+- Install scripts: do not stop on an informative command under `set -euo pipefail` (`hostname -I` does not exist in BusyBox/Alpine); say how to start the programs when systemd is missing.
 
 ## v19.1 - November 2026
 
