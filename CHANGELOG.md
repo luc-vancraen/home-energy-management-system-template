@@ -6,6 +6,7 @@ Each version of the template, with the most important changes. Fixed versions wi
 
 - README: new paragraph "Do you need a paid AI subscription?" (English and Dutch).
 - Install scripts: do not stop on an informative command under `set -euo pipefail` (`hostname -I` does not exist in BusyBox/Alpine); say how to start the programs when systemd is missing.
+- Install scripts: reinstalling updates every given option in the existing config (not just the meter URL), then works with the values actually in the config, restarts running services and asks for tokens hidden.
 
 ## v19.1 - November 2026
 
