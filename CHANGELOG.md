@@ -2,6 +2,20 @@
 
 Each version of the template, with the most important changes. Fixed versions with PDFs: see [Releases](https://github.com/luc-vancraen/home-energy-management-system-template/releases).
 
+## v19.3 - November 2026
+
+Lessons from building and testing a ready-made installer for people without AI or terminal skills
+([home-energy-management-system-installer](https://github.com/luc-vancraen/home-energy-management-system-installer)):
+
+- Install and set up without terminal skills: windows on a desktop (zenity, sudo password via `SUDO_ASKPASS`), menus in a terminal (whiptail), plain text for scripts; all setup afterwards on a Settings page in the dashboard, first admin password with a one-time setup code.
+- Shortcuts people can find: GNOME shows no desktop icons, so put a launcher with its own icon in the menu and the dock (not in the category `Utility`), and remove it on uninstall.
+- Unique service names, and check first what already exists (also user services); a ready-made installer clashed with a self-built system using the same names.
+- Updating: the installer recognises an existing installation; previous program files go to `backup/<date-time>/` (limited number), with a version number.
+- Testing on a bare machine: a virtual machine with a fresh installation of the same OS and desktop, in the user's language, on the home network; let the user click and only watch.
+- Tariffs from the place of residence (Belgium): municipality → grid operator → distribution, capacity tariff and data management; federal levies automatic; certificates differ per supplier.
+- Capacity tariff: show how long the running quarter hour has been going, because its average says little right after the start.
+- README and template: link to the ready-made installer for people who only want to measure.
+
 ## v19.2 - November 2026
 
 - README: new paragraph "Do you need a paid AI subscription?" (English and Dutch).

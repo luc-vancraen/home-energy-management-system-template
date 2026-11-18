@@ -4,6 +4,10 @@
 
 [Nederlandse versie hieronder](#nederlands)
 
+> **No AI, just measuring?** There is also a ready-made installer built according to this template, for people who
+> want to measure and report without an AI and without terminal skills (Linux, Dutch-language):
+> [home-energy-management-system-installer](https://github.com/luc-vancraen/home-energy-management-system-installer).
+
 ## Quick start
 
 1. Choose your language: [`hems-template-en.md`](hems-template-en.md) (English) or [`hems-template-nl.md`](hems-template-nl.md) (Dutch).
@@ -96,6 +100,10 @@ Made by **luc-vancraen**. Licensed under [Creative Commons Attribution-ShareAlik
 Je geeft dit template aan een AI-assistent. Die vraagt eerst naar je installatie en wensen, kijkt je machine na, stelt een plan voor en bouwt pas na je akkoord. Het resultaat zijn gewone programma's op je eigen computer die je digitale meter uitlezen, een dashboard, rapporten en meldingen geven, thuisbatterijen, een laadpaal en andere toestellen sturen op zon, prijs en kwartierpiek, en contracten vergelijken met je echte verbruik. Ook zonder batterijen of zonnepanelen kan je starten, bv. met enkel advies vóór aankoop.
 
 Het template is gebaseerd op een systeem dat al maanden stabiel draait in een huis in Vlaanderen, en bevat de lessen die daar geleerd zijn.
+
+> **Geen AI, enkel meten?** Er is ook een kant-en-klare installer, gebouwd volgens dit template, voor wie wil meten en
+> rapporteren zonder AI en zonder terminalkennis (Linux, Nederlandstalig):
+> [home-energy-management-system-installer](https://github.com/luc-vancraen/home-energy-management-system-installer).
 
 **Snel starten**
 
