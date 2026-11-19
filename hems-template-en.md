@@ -1,6 +1,6 @@
 # Prompt: building a home energy management system (EMS) on your own Linux machine
 
-Template v19.3 - November 2026
+Template v19.4 - November 2026
 
 ## For the user (read this first)
 
@@ -88,6 +88,8 @@ Way of working during the conversation:
 - **Look things up yourself instead of making me search**: official supplier tariff sheets, grid tariffs, the rules of my region (capacity tariff, net metering, registration of batteries, subsidies) and the manuals of my devices you look up on the internet yourself, at the official source. Always state the source and the date, and let me confirm the most important values. Rules and prices change: never use only your own prior knowledge as fact.
 
 ## Phase 1 - Asking about my installation and wishes
+
+Is there a `mijn-installatie.md` (from the "Mijn installatie" questionnaire of the HEMS monitoring system, or filled in by me)? Then read it first. Take over what it contains, only ask about what is 'niet ingevuld' (not filled in) or unclear, and let me confirm the whole at the end as described below.
 
 ### Block A - Starting profile, goals and priorities
 - First a short pre-check, before all other questions: do I have a digital meter, is the data port activated, and is there already a dongle on it that can be read locally (and if so, does my battery or inverter already use it)? If not: say right away which profiles are possible now (advice before buying, based on quarter-hour data or the annual bill) and what I need to arrange first (see "Preparing the meter"), so that I do not first fill in all blocks for something that is not yet possible.
@@ -213,6 +215,8 @@ At the end, summarise everything in one overview and let me confirm or correct i
 
 Check without changing anything: OS and version, Python 3, free disk space, Docker, systemd, time zone and time synchronisation (NTP; times in reports must be correct), whether the specified devices are reachable (ping, port open), which ports are open and to whom (firewall, Docker containers; with WSL also the network mode, systemd and the Windows firewall), and whether the meter already provides data. For the meter specifically: read one measurement and report which fields are present (power, current and voltage per phase; import and export registers per tariff; running quarter-hour average and monthly peak), how many seconds there are between new values, whether the sign for feed-in is correct (compare with the sun or the app), and whether the number of phases matches block B. Say what is missing and which modules therefore cannot work or work less well (e.g. no current per phase: no main fuse monitoring). If the quarter-hour average or monthly peak is missing: calculate them yourself from the import register (quarter hours on the clock) and mark quarter hours with missing or incomplete measurements. Do not store the meter number or serial number outside `.env`. Check whether other software is already running that talks to the same devices (duplicate connections). If Home Assistant is already running: list the integrations and automations that read or control the devices involved, without changing anything. Report what is missing and what I need to do myself (e.g. enable the local API in an app or obtain a token, DHCP reservation in the router).
 
+Also check whether the **HEMS monitoring system from the ready-made installer** is already there (folder `~/hems-systeem`, services `hems-systeem-*`, dashboard usually on port 8080). If so: measuring, dashboard, Settings page, costs and daily reports already exist, and the user knows that way of working.
+
 ## Phase 3 - Proposing a plan
 
 ### First: build it yourself or use existing software?
@@ -220,6 +224,7 @@ Weigh it up honestly and present the choice to me:
 - **Existing packages**: evcc (car charging, supports many chargers and cars, own web interface; for some chargers a paid "sponsor token"), EMHASS (planning of battery and shiftable appliances on price and forecast, via Home Assistant), Predbat (battery planning on dynamic tariffs, strong in the UK), SEM and PV Excess Control (distributing surplus, Home Assistant). Combinations are also possible, e.g. a planner that decides and evcc that carries out the charging.
 - **Build it yourself** (like the example system): full control, also for devices or rules that packages do not know (e.g. a battery via Modbus without an integration, the Flemish capacity tariff), but more maintenance.
 - **Hybrid**: an existing package for what it does well, own modules for the rest. Make sure two systems never control the same device.
+- **Building on the installer** (if it is there, see phase 2): the installer keeps doing the measuring; what I build is added as separate modules in their own folder with their own services. I never change the installer's files (an update overwrites them) and only read its measurements (database read-only or its API). That way no second measuring system runs alongside, and for the user it all stays one system in the same style. If a module should appear on the installer's **tablet view** (`/tablet`), it writes a small JSON file in `~/hems-systeem/data/tablet/` (format in the installer's LEESMIJ); with its power included, the device also appears in the energy-flow diagram.
 
 ### Then: the plan
 For the profile "advice before buying" the plan is short: read in the data (or first measure for a while), module 19, and an advice report; nothing is controlled and nothing in the house is changed. For the other profiles: propose a plan with only the modules that fit my installation and choices (catalogue below), in order, with for each step: what it does, what changes on my machine, and how we check that it works. Mention which settings in devices or apps I need to change myself and how I change them back. Wait for my approval.
@@ -287,6 +292,18 @@ For the profile "advice before buying" the plan is short: read in the data (or f
   - Include everything needed for a rebuild, not just the project folder: also the systemd drop-ins (`*.service.d`, which contain the failsafes on stop), the backup script itself, sudo rules, Docker Compose files of other containers, configurations of ESP modules and your own modifications to them. Leave out rebuildable things (Python environment, build cache), but test that they can be rebuilt.
   - The password of the encrypted backup must not exist only on the machine itself: if that disk fails, the backup is unusable. Have the user keep it in a password manager or on paper, and never show it in a report or e-mail.
   - Really test restoring, once in full (to a separate folder: restore time, integrity of the databases, configuration present, rebuilding the Python environment from `requirements.txt` and passing the tests) and then automatically every month (`restic check` with part of the data, restore and check the database copies, age of the last measurement, e-mail with the result). Delete the test folder afterwards: it contains a copy of all passwords.
+
+### Kiosk style: set up and operate without a terminal
+After delivery the user never needs to open a terminal or edit a configuration file. Configuration files remain (in git, for the assistant and for backups), but everything the user needs to do goes through the dashboard:
+- **Each module gets its own section on the Settings page**: on/off, observation mode as a switch (on by default for a new module), the limits with unit and explanation, a test button that reads one value from the device, and the status: last decision and the reason in plain language. If the installer is already running, each module gets its own page in the same style, with a clear link from the dashboard.
+- **Emergency stop as a big button on the dashboard**, with a confirmation, and a button to resume. The top of every page always shows whether control is active, in observation or stopped.
+- **Hard limits also apply on the page**: the server refuses a value above a hard limit (main fuse, capacity-tariff budget, discharge floor, maximum power) and the page says why. So even someone who makes a mistake in a field cannot set anything dangerous.
+- **Changes work without a restart** (the program re-reads the settings), with an automatic backup of the previous setting and a "restore previous setting" button.
+- **Find devices with a button** on the home network (read-only), instead of asking for IP addresses.
+- **Admin with a password**, viewing without one or with a separate viewing password. The first time a one-time setup code, as with the installer.
+- **Notifications in plain language** on the dashboard (and by mail if chosen), not only in log files.
+- **The user's words**, numbers with units in the local notation, and a short explanation with every field.
+- **Extending and adjusting** later: the assistant updates the page along with every new module or setting. A setting that only exists in a file counts as unfinished.
 
 ### Order (first make each step work and show it, only then the next)
 1. Reading and logging the meter.

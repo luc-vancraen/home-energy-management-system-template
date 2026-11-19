@@ -1,6 +1,6 @@
 # Prompt: een thuis-energiebeheersysteem (EMS) bouwen op je eigen Linux-machine
 
-Template v19.3 - november 2026
+Template v19.4 - november 2026
 
 ## Voor de gebruiker (lees dit eerst)
 
@@ -88,6 +88,8 @@ Werkwijze tijdens het gesprek:
 - **Zelf opzoeken in plaats van mij te laten zoeken**: officiële tariefkaarten van leveranciers, nettarieven, regels van mijn regio (capaciteitstarief, terugdraaiende teller, aanmelding van batterijen, premies) en handleidingen van mijn toestellen zoek je zelf op het internet op, bij de officiële bron. Vermeld telkens de bron en de datum, en laat mij de belangrijkste waarden bevestigen. Regels en prijzen veranderen: gebruik nooit alleen je eigen voorkennis als feit.
 
 ## Fase 1 - Mijn installatie en wensen opvragen
+
+Staat er een `mijn-installatie.md` (van de vragenlijst "Mijn installatie" van het HEMS-meetsysteem, of door mij ingevuld)? Lees die dan eerst. Neem over wat erin staat, stel enkel nog vragen over wat 'niet ingevuld' of onduidelijk is, en laat me het geheel op het einde bevestigen zoals hieronder.
 
 ### Blok A - Startprofiel, doelen en prioriteiten
 - Eerst een korte voorcheck, vóór alle andere vragen: heb ik een digitale meter, is de gegevenspoort geactiveerd, en zit er al een dongle op die lokaal uit te lezen is (en zo ja, gebruikt mijn batterij of omvormer die al)? Zo niet: zeg meteen welke profielen nu al kunnen (advies vóór aankoop, op basis van kwartierdata of jaarafrekening) en wat ik eerst moet regelen (zie "Meter klaarmaken"), zodat ik niet eerst alle blokken invul voor iets wat nog niet kan.
@@ -213,6 +215,8 @@ Vat op het einde alles samen in één overzicht en laat me dat bevestigen of cor
 
 Controleer zonder iets te wijzigen: OS en versie, Python 3, vrije schijfruimte, Docker, systemd, tijdzone en tijdsynchronisatie (NTP; tijden in rapporten moeten kloppen), of de opgegeven toestellen bereikbaar zijn (ping, poort open), welke poorten openstaan en voor wie (firewall, Docker-containers; bij WSL ook de netwerkmodus, systemd en de Windows-firewall), en of de meter al data geeft. Voor de meter concreet: lees één meting en meld welke velden er zijn (vermogen, stroom en spanning per fase; tellers afname en injectie per tarief; lopend kwartiergemiddelde en maandpiek), om de hoeveel seconden er een nieuwe waarde komt, of het teken bij injectie klopt (vergelijk met de zon of de app), en of het aantal fasen overeenkomt met blok B. Zeg wat er ontbreekt en welke modules daardoor niet of minder goed kunnen (bv. geen stroom per fase: geen bewaking van de hoofdzekering). Ontbreken kwartiergemiddelde of maandpiek: bereken ze zelf uit de tellerstanden van de afname (kwartieren op de klok) en markeer kwartieren met ontbrekende of onvolledige metingen. Sla het meternummer of serienummer niet op buiten `.env`. Kijk of er al andere software draait die dezelfde toestellen aanspreekt (dubbele verbindingen). Draait er al Home Assistant: maak een lijst van de integraties en automatiseringen die de betrokken toestellen lezen of sturen, zonder iets te wijzigen. Meld wat ontbreekt en wat ik zelf moet doen (bv. de lokale API aanzetten in een app of een token ophalen, DHCP-reservatie in de router).
 
+Kijk ook of het **HEMS-meetsysteem van de kant-en-klare installer** er al staat (map `~/hems-systeem`, services `hems-systeem-*`, dashboard meestal op poort 8080). Zo ja: meten, dashboard, pagina Instellingen, kosten en dagrapporten bestaan al, en de gebruiker kent die manier van werken.
+
 ## Fase 3 - Plan voorstellen
 
 ### Eerst: zelf bouwen of bestaande software gebruiken?
@@ -220,6 +224,7 @@ Weeg eerlijk af en leg me de keuze voor:
 - **Bestaande pakketten**: evcc (laden van auto's, veel laadpalen en auto's ondersteund, eigen webinterface; voor sommige laadpalen een betaald "sponsor token"), EMHASS (planning van batterij en verschuifbare toestellen op prijs en voorspelling, via Home Assistant), Predbat (batterijplanning op dynamische tarieven, sterk in het VK), SEM en PV Excess Control (overschot verdelen, Home Assistant). Ook combinaties zijn mogelijk, bv. een planner die beslist en evcc die het laden uitvoert.
 - **Zelf bouwen** (zoals het voorbeeldsysteem): volledige controle, ook voor toestellen of regels die pakketten niet kennen (bv. een batterij via Modbus zonder integratie, het Vlaamse capaciteitstarief), maar meer onderhoud.
 - **Mengvorm**: een bestaand pakket voor wat het goed doet, eigen modules voor de rest. Let dan op dat twee systemen nooit hetzelfde toestel sturen.
+- **Verder bouwen op de installer** (als die er staat, zie fase 2): de installer blijft het meten doen; wat ik bouw, komt erbij als aparte modules in een eigen map met eigen services. Ik wijzig nooit de bestanden van de installer (een update overschrijft ze) en lees zijn metingen enkel (databank alleen-lezen of zijn API). Zo hoeft er geen tweede meetsysteem naast te draaien, en blijft het geheel voor de gebruiker één systeem in dezelfde stijl. Wil een module zich op de **tabletweergave** van de installer tonen (`/tablet`), dan schrijft ze een klein JSON-bestand in `~/hems-systeem/data/tablet/` (formaat in de LEESMIJ van de installer); met het vermogen erbij komt het toestel ook in het stroomschema.
 
 ### Daarna: het plan
 Bij het profiel "advies vóór aankoop" is het plan kort: data inlezen (of eerst een tijd meten), module 19, en een adviesrapport; er wordt niets gestuurd en niets in huis gewijzigd. Bij de andere profielen: stel een plan voor met enkel de modules die bij mijn installatie en keuzes passen (catalogus hieronder), in volgorde, met per stap: wat het doet, wat er verandert op mijn machine, en hoe we controleren dat het werkt. Vermeld welke instellingen in toestellen of apps ik zelf moet wijzigen en hoe ik ze terugzet. Wacht op mijn akkoord.
@@ -287,6 +292,18 @@ Bij het profiel "advies vóór aankoop" is het plan kort: data inlezen (of eerst
   - Neem alles mee wat bij een herbouw nodig is, niet enkel de projectmap: ook de systemd-aanvullingen (`*.service.d`, daar zitten de failsafes bij het stoppen), het back-upscript zelf, sudo-regels, Docker-compose-bestanden van andere containers, configuraties van ESP-modules en eigen aanpassingen eraan. Laat herbouwbare dingen weg (Python-omgeving, buildcache), maar test dat ze herbouwbaar zijn.
   - Het wachtwoord van de versleutelde back-up mag niet enkel op de machine zelf staan: gaat die schijf kapot, dan is de back-up onbruikbaar. Laat de gebruiker het bewaren in een wachtwoordmanager of op papier, en toon het nooit in een rapport of mail.
   - Test het terugzetten echt, eenmalig volledig (naar een aparte map: terugzettijd, integriteit van de databases, configuratie aanwezig, Python-omgeving opnieuw opbouwen uit `requirements.txt` en de tests laten slagen) en daarna maandelijks automatisch (`restic check` met een deel van de data, de databasekopieën terugzetten en controleren, leeftijd van de laatste meting, mail met het resultaat). Verwijder de testmap daarna: hij bevat een kopie van alle wachtwoorden.
+
+### Kioskstijl: instellen en bedienen zonder terminal
+De gebruiker hoeft na de oplevering nooit een terminal te openen of een configuratiebestand te bewerken. Configuratiebestanden blijven bestaan (in git, voor de assistent en voor back-ups), maar alles wat de gebruiker moet kunnen, gaat via het dashboard:
+- **Per module een eigen onderdeel op de pagina Instellingen**: aan/uit, de observatiemodus als schakelaar (bij een nieuwe module standaard aan), de grenzen met eenheid en uitleg, een testknop die één waarde van het toestel leest, en de status: laatste beslissing en de reden in gewone taal. Draait de installer al, dan krijgt elke module een eigen pagina in dezelfde stijl, met een duidelijke link vanuit het dashboard.
+- **Noodknop als grote knop op het dashboard**, met een bevestiging, en een knop om te hervatten. Bovenaan elke pagina staat altijd of de sturing actief, in observatie of gestopt is.
+- **Harde grenzen gelden ook op de pagina**: de server weigert een waarde boven een harde grens (hoofdzekering, captar-budget, ontlaadvloer, maximaal vermogen) en de pagina zegt waarom. Ook wie zich vergist in een veld, kan zo niets gevaarlijks instellen.
+- **Wijzigingen werken zonder herstart** (het programma herleest de instellingen), met een automatische back-up van de vorige instelling en een knop "vorige instelling terugzetten".
+- **Toestellen zoeken met een knop** op het thuisnetwerk (alleen lezen), in plaats van naar IP-adressen te vragen.
+- **Beheer met een wachtwoord**, kijken zonder of met een apart kijkwachtwoord. De eerste keer een eenmalige instelcode, zoals bij de installer.
+- **Meldingen in gewone taal** op het dashboard (en per mail als dat gekozen is), niet enkel in logbestanden.
+- **Woorden van de gebruiker**, getallen met eenheid en in lokale notatie (komma), en bij elk veld een korte uitleg.
+- **Uitbreiden en aanpassen** later: de assistent werkt de pagina mee bij met elke nieuwe module of instelling. Een instelling die enkel in een bestand bestaat, telt als onaf.
 
 ### Volgorde (elke stap eerst laten werken en tonen, dan pas de volgende)
 1. Meter uitlezen en loggen.

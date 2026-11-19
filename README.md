@@ -7,6 +7,8 @@
 > **No AI, just measuring?** There is also a ready-made installer built according to this template, for people who
 > want to measure and report without an AI and without terminal skills (Linux, Dutch-language):
 > [home-energy-management-system-installer](https://github.com/luc-vancraen/home-energy-management-system-installer).
+> The same release has a starter, `hems-bouwen-met-ai.sh`, that installs an AI agent, fetches this template and adds a
+> button to build further on that installer with AI.
 
 ## Quick start
 
@@ -104,6 +106,8 @@ Het template is gebaseerd op een systeem dat al maanden stabiel draait in een hu
 > **Geen AI, enkel meten?** Er is ook een kant-en-klare installer, gebouwd volgens dit template, voor wie wil meten en
 > rapporteren zonder AI en zonder terminalkennis (Linux, Nederlandstalig):
 > [home-energy-management-system-installer](https://github.com/luc-vancraen/home-energy-management-system-installer).
+> In dezelfde release zit een starter, `hems-bouwen-met-ai.sh`, die een AI-agent installeert, dit template ophaalt en
+> een knop zet om met AI verder te bouwen op die installer.
 
 **Snel starten**
 

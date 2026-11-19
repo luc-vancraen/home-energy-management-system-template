@@ -2,6 +2,14 @@
 
 Each version of the template, with the most important changes. Fixed versions with PDFs: see [Releases](https://github.com/luc-vancraen/home-energy-management-system-template/releases).
 
+## v19.4 - November 2026
+
+- Phase 1: if there is a `mijn-installatie.md` (from the questionnaire of the ready-made installer, or filled in by the user), read it first and only ask about what is missing or unclear.
+- Phase 2: check whether the ready-made HEMS monitoring system is already installed (`~/hems-systeem`, services `hems-systeem-*`).
+- Building on the installer: it keeps doing the measuring; new modules come in their own folder with their own services, never change the installer's files and only read its measurements. A module can show itself on the installer's tablet view by writing a small JSON card in `~/hems-systeem/data/tablet/`.
+- New section "Kiosk style": after delivery everything the user needs goes through the dashboard (a Settings section per module, emergency stop button, hard limits enforced by the server, changes without restart with backup, finding devices with a button, password with setup code, plain-language notifications).
+- README: the installer release now also has the starter `hems-bouwen-met-ai.sh`.
+
 ## v19.3 - November 2026
 
 Lessons from building and testing a ready-made installer for people without AI or terminal skills
